@@ -1,1 +1,1 @@
-# GH pages: sekushov.github.io/employees-react/build
+# GH Pages: https://sekushov.github.io/employees-react/build/
