@@ -20,13 +20,13 @@ class App extends Component {
    
     componentDidMount = () => {
         if (!localStorage.getItem('data')) {
-            fetch("/data.json")
+            fetch("./data.json")
                 .then(response => response.json())
                 .then(json => {
                     this.setState({
                         data: json.data
                     });
-                }).catch(() => console.log('Что-то пошло не так'));
+                }).catch(() => console.log('Сбой загрузки данных из файла'));
         }
     }
 
