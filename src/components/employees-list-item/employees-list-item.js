@@ -16,6 +16,17 @@ class EmployeesListItem extends Component {
         });
         this.props.onChangeSalary(this.props.id, e.target.value);
     }
+    showBtnTitle = (btn) => {
+        switch (btn) {
+            case 'rise': 
+                if (!this.props.rise) return "Повысить в должности";
+                else return "Снять с повышения";
+            case 'increase': 
+                if (!this.props.increase) return "Премировать";
+                else return "Отменить премию";
+            default: return
+        }
+    }
     render() {
         const {name, salary, increase, rise, onDelete, onToggleProp} = this.props;
         let liClassNames = "list-group-item d-flex justify-content-between";
@@ -29,8 +40,8 @@ class EmployeesListItem extends Component {
             <li className={liClassNames}>
                 <span className="list-group-item-label" 
                     data-toggle="rise" 
-                    onClick={onToggleProp} 
-                    title="Повысить в должности">{name}</span>
+                    onClick={onToggleProp}
+                    title={this.showBtnTitle('rise')}>{name}</span>
                 <div className="list-group-item-input-wrapper">
                     <input type="number" 
                         className="list-group-item-input" 
@@ -43,7 +54,7 @@ class EmployeesListItem extends Component {
                     <button className="btn-cookie btn-sm" 
                         data-toggle="increase" 
                         onClick={onToggleProp} 
-                        title="Премировать">
+                        title={this.showBtnTitle('increase')}>
                         <i className="fas fa-cookie"></i>
                     </button>
                     <button className="btn-trash btn-sm" onClick={onDelete} title="Удалить">
