@@ -22,7 +22,26 @@ class EmployeesAddForm extends Component {
         return (
             <div className="app-add-form">
                 <h3>Добавьте нового сотрудника</h3>
-                <form className="add-form d-flex" onSubmit={(e) => onAdd(e, name, salary)}>
+                <form className="add-form d-flex" 
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        const wrongText = document.querySelector('.formWrongText');
+                        if (name.length < 2 || salary < 100 || name.match(/\d/g)) {
+                            if (wrongText.textContent === '') {
+                                wrongText.textContent = 'Данные некорректны';
+                                setTimeout(() => {wrongText.textContent = ''}, 3000);
+                            }
+                        } else {
+                            onAdd(e, name, salary);
+                            this.setState(() => {
+                                return {
+                                    name: '',
+                                    salary: ''
+                                }
+                            });
+                        }
+                    }}>
+
                     <input 
                         type="text" 
                         className="form-control new-post-label"

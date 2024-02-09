@@ -54,28 +54,18 @@ class App extends Component {
     }
 
     addItem = async (e, name, salary) => {
-        e.preventDefault();
         let maxId = 0;
         this.state.data.forEach(item => {
             if (maxId < item.id) {
                 maxId = item.id
             }
         });
-        const wrongText = document.querySelector('.formWrongText');
-        if (name.length < 3 || salary < 100 || name.match(/\d/g)) {
-            if (wrongText.textContent === '') {
-                wrongText.textContent = 'Данные некорректны';
-                setTimeout(() => {wrongText.textContent = ''}, 3000);
+        await this.setState(({data}) => {
+            return {
+                data: data.concat({name: name, salary: +salary, increase: false, rise: false, id: maxId + 1})
             }
-        } else {
-            await this.setState(({data}) => {
-                return {
-                    data: data.concat({name: name, salary: +salary, increase: false, rise: false, id: maxId + 1})
-                }
-            });
-            localStorage.setItem("data", JSON.stringify(this.state.data));
-
-        }
+        });
+        localStorage.setItem("data", JSON.stringify(this.state.data));
     }
 
     onToggleProp = async (id, prop) => {
